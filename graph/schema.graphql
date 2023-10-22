@@ -1,0 +1,61 @@
+type SubscriptionList @entity {
+  id: ID! # subscription id
+  deposit: BigInt!
+  fixedRate: BigInt!
+  withdrawnBalance: BigInt!
+  remainingBalance: BigInt!
+  startTime: BigInt!
+  stopTime: BigInt!
+  interval: BigInt!
+  withdrawableCount: BigInt!
+  withdrawnCount: BigInt!
+  lastWithdrawTime: BigInt!
+  recipient: Recipient!
+  sender: Sender!
+  tokenAddress: Bytes!
+  isEntity: Boolean!
+  recipientWithdrawLog: [RecipientWithdrawLog!]! @derivedFrom(field: "subscription")
+  senderDepositeLog: [SenderDepositeLog!]! @derivedFrom(field: "subscription")
+  senderWithdrawLog: [SenderWithdrawLog!]! @derivedFrom(field: "subscription")
+}
+
+type Recipient @entity {
+  id: ID! # user address
+  withdrawnBalance: BigInt!
+  subscriptions: [SubscriptionList!]! @derivedFrom(field: "recipient")
+  recipientWithdrawLog: [RecipientWithdrawLog!]! @derivedFrom(field: "recipient")
+}
+
+type Sender @entity {
+  id: ID! # user address
+  deposit: BigInt!
+  withdrawnToRecipient: BigInt!
+  subscriptions: [SubscriptionList!]! @derivedFrom(field: "sender")
+  senderDepositeLog: [SenderDepositeLog!]! @derivedFrom(field: "sender")
+  senderWithdrawLog: [SenderWithdrawLog!]! @derivedFrom(field: "sender")
+}
+
+type RecipientWithdrawLog @entity {
+  id: ID! # transaction hash and log index
+  recipient: Recipient!
+  subscription: SubscriptionList!
+  withdrawAmount: BigInt!
+  withdrawTime: BigInt!
+  withdrawnCount: BigInt!
+}
+
+type SenderWithdrawLog @entity {
+  id: ID! # transaction hash and log index
+  sender: Sender!
+  subscription: SubscriptionList!
+  withdrawAmount: BigInt!
+  withdrawTime: BigInt!
+}
+
+type SenderDepositeLog @entity {
+  id: ID! # transaction hash and log index
+  sender: Sender!
+  subscription: SubscriptionList!
+  depositeAmount: BigInt!
+  depositeTime: BigInt!
+}

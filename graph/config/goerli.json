@@ -1,0 +1,7 @@
+{
+  "network": "goerli",
+  "Subscription": {
+    "startBlock": 9847060,
+    "address": "0xbDf6Fb9AF46712ebf58B9CB0c23B4a881BF58099"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "network": "scroll-sepolia",
+  "Subscription": {
+    "startBlock": 1764347,
+    "address": "0x35A7B4067b2A652E19202264Cd9977451ab3a7dC"
+  }
+}

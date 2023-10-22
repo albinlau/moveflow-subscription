@@ -1,0 +1,37 @@
+specVersion: 0.0.4
+schema:
+  file: ./graph/schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Subscription
+    network: {{network}}
+    source:
+      address: "{{#Subscription}}{{address}}{{/Subscription}}"
+      startBlock: {{#Subscription}}{{startBlock}}{{/Subscription}}
+      abi: ISubscription
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - SubscriptionList
+        - Recipient
+        - Sender
+        - RecipientWithdrawLog
+        - SenderDepositeLog
+        - SenderWithdrawLog
+      abis:
+        - name: ISubscription
+          file: ./artifacts/contracts/interfaces/ISubscription.sol/ISubscription.json
+      eventHandlers:
+        - event: CreateSubscription(indexed uint256,indexed address,indexed address,uint256,address,uint256,uint256,uint256,uint256)
+          handler: handleCreateSubscription
+        - event: WithdrawFromRecipient(indexed uint256,indexed address,uint256)
+          handler: handleWithdrawFromRecipient
+        - event: WithdrawFromSender(indexed uint256,indexed address,uint256)
+          handler: handleWithdrawFromSender
+        - event: DepositeFromSender(indexed uint256,indexed address,uint256)
+          handler: handleDepositeFromSender
+        - event: CancelSubscription(indexed uint256,indexed address,indexed address,uint256,uint256)
+          handler: handleCancelSubscription
+      file: ./graph/src/subscription.ts

@@ -1,0 +1,7 @@
+{
+  "network": "polygon-zkevm-testnet",
+  "Subscription": {
+    "startBlock": 2991652,
+    "address": "0x35A7B4067b2A652E19202264Cd9977451ab3a7dC"
+  }
+}

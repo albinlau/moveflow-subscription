@@ -1,0 +1,17 @@
+node_modules
+.env
+coverage
+coverage.json
+typechain
+bin
+
+deployments
+
+#Hardhat files
+cache
+artifacts
+
+#graph temp files
+build
+generated
+subgraph.yaml
